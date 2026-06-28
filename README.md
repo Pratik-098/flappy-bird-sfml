@@ -25,18 +25,15 @@ A modern implementation of the classic **Flappy Bird** game developed in **C++20
 
 # 📌 Overview
 
-This project recreates the classic Flappy Bird gameplay while focusing on clean software architecture and modern C++ programming practices.
-
-The game features a fixed time-step update loop, smooth gameplay mechanics, automatic asset discovery, and a persistent high-score system built using file handling.
-
+The game features a fixed time-step update loop, smooth gameplay mechanics, procedurally generated pipe obstacles, automatic asset discovery using the C++ filesystem library, and a persistent high-score system using file handling.
 ---
 
 # ✨ Features
 
 * 🐦 Realistic bird movement with gravity and flap mechanics
-* 🚧 Procedurally generated pipe obstacles
+* 🚧 Infinite procedurally generated pipe obstacles
 * 💥 Accurate collision detection system
-* 🏆 Persistent high-score saving
+* 🏆 Persistent high-score storage using file handling
 * 📱 Responsive fullscreen layout
 * ⚡ Fixed timestep game loop (120 updates/sec)
 * 🧩 Modular object-oriented architecture
@@ -106,25 +103,33 @@ flappy-bird-sfml
 
 # 📸 Screenshots
 
-### Main Menu
+### Beginning of Gameplay
 
-![Main Menu](screenshots/Output-1.png)
+The game starts with the bird approaching the first obstacle while displaying the current score and the saved high score.
+
+![Beginning of Gameplay](screenshots/Output-1.png)
 
 ---
 
 ### Gameplay
 
+The bird navigates through multiple pipes using gravity and flap mechanics. This screenshot showcases the core gameplay experience.
+
 ![Gameplay](screenshots/Output-2.png)
 
 ---
 
-### Collision & Score
+### Advanced Gameplay
 
-![Collision and Score](screenshots/Output-3.png)
+As the score increases, navigating through the procedurally generated pipes becomes more challenging, demonstrating the game's progression.
+
+![Advanced Gameplay](screenshots/Output-3.png)
 
 ---
 
 ### Game Over
+
+The game over screen displays the final score and allows the player to restart instantly or exit the game.
 
 ![Game Over](screenshots/Output-4.png)
 
