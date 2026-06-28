@@ -1,7 +1,12 @@
 <h1 align="center">🐦 Flappy Bird Game using C++ & SFML</h1>
 
 <p align="center">
+
+**Version 2.0**
+
 Classic Flappy Bird recreated in Modern C++ using SFML.
+
+</p>
 </p>
 
 <p align="center">
@@ -31,9 +36,11 @@ The game features a fixed time-step update loop, smooth gameplay mechanics, proc
 # ✨ Features
 
 * 🐦 Realistic bird movement with gravity and flap mechanics
-* 🚧 Infinite procedurally generated pipe obstacles
+* 🚧 Procedurally generated pipe obstacles
 * 💥 Accurate collision detection system
-* 🏆 Persistent high-score storage using file handling
+* 🏆 Persistent high-score saving
+* 🎵 Background music
+* 🔊 Sound effects (Flap, Score, Hit, Game Over)
 * 📱 Responsive fullscreen layout
 * ⚡ Fixed timestep game loop (120 updates/sec)
 * 🧩 Modular object-oriented architecture
@@ -59,11 +66,17 @@ The game features a fixed time-step update loop, smooth gameplay mechanics, proc
 # 📁 Project Structure
 
 ```text
-flappy-bird-sfml
+flappy-bird-sfml/
 │
 ├── assets/
 │   ├── Bird.png
-│   └── Pipes.png
+│   ├── Pipes.png
+│   └── sounds/
+│       ├── bgmusic.wav
+│       ├── flap.mp3
+│       ├── score.mp3
+│       ├── hit.mp3
+│       └── gameover.mp3
 │
 ├── screenshots/
 │   ├── Output-1.png
@@ -88,16 +101,30 @@ flappy-bird-sfml
 ├── LICENSE
 └── .gitignore
 ```
+---
+
+# 🎨 Assets
+
+The game uses custom assets stored inside the `assets` directory.
+
+- Bird sprite
+- Pipe sprite
+- Background music
+- Flap sound
+- Score sound
+- Hit sound
+- Game Over sound
 
 ---
 
 # 🎮 Controls
 
-| Key       | Action       |
-| --------- | ------------ |
-| **Space** | Flap         |
-| **R**     | Restart Game |
-| **Esc**   | Exit         |
+| Key        | Action  |
+| ---------- | ------- |
+| Space      | Flap    |
+| Left Mouse | Flap    |
+| R          | Restart |
+| Esc        | Exit    |
 
 ---
 
@@ -175,6 +202,7 @@ make clean
 * Resource Management
 * File Handling
 * Persistent High-Score System
+* Audio Integration using SFML
 * Modern C++20 Features
 * Build Automation using GNU Make
 
@@ -183,14 +211,14 @@ make clean
 # 🔮 Future Improvements
 
 * Multiple Difficulty Levels
-* Background Music
-* Sound Effects
 * Pause Menu
+* Settings Menu
+* Volume Control
 * Animated Background
 * Power-ups
 * Better UI/UX
 * Cross-platform Packaging
-* Settings Menu
+* Mobile Port
 
 ---
 

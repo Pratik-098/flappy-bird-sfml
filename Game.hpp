@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <optional>
 #include "Bird.hpp"
 #include "HighScore.hpp"
@@ -60,5 +61,12 @@ private:
     sf::VertexArray m_bg;
     sf::RectangleShape m_ground;
     bool m_debugMode{false};
+
+    sf::Music m_backgroundMusic;
+    
+    sf::SoundBuffer m_flapBuffer;
+    sf::SoundBuffer m_scoreBuffer;
+    sf::SoundBuffer m_hitBuffer;
+    sf::SoundBuffer m_gameOverBuffer;
 };
 

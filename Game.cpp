@@ -32,9 +32,19 @@ Game::Game() : m_mode(sf::VideoMode::getDesktopMode()),
     m_window.setKeyRepeatEnabled(false);
 
     const auto assets = locateAssetsDir();
+    const auto sounds = assets / "sounds";
     (void)m_birdTex.loadFromFile(assets / "Bird.png");
     (void)m_pipeTex.loadFromFile(assets / "Pipes.png");
-
+    if (m_backgroundMusic.openFromFile(sounds / "bgmusic.wav"))
+    {
+    m_backgroundMusic.setLooping(true);
+    m_backgroundMusic.setVolume(35.f);
+    m_backgroundMusic.play();
+    }
+    (void)m_flapBuffer.loadFromFile(sounds / "flap.mp3");
+    (void)m_scoreBuffer.loadFromFile(sounds / "score.mp3");
+    (void)m_hitBuffer.loadFromFile(sounds / "hit.mp3");
+    (void)m_gameOverBuffer.loadFromFile(sounds / "gameover.mp3");
     if (const auto fontPath = pickSystemFont())
     {
         m_hasFont = m_font.openFromFile(*fontPath);
@@ -120,15 +130,29 @@ void Game::resetRun()
 
 void Game::onFlap()
 {
+    static sf::Sound flapSound(m_flapBuffer);
+
     if (m_state == State::GameOver)
     {
         resetRun();
         m_state = State::Running;
-        if (m_bird) m_bird->flap(m_flapImpulse);
+
+        if (m_bird)
+        {
+            m_bird->flap(m_flapImpulse);
+            flapSound.play();
+        }
         return;
     }
+
     if (m_state == State::Running)
-        if (m_bird) m_bird->flap(m_flapImpulse);
+    {
+        if (m_bird)
+        {
+            m_bird->flap(m_flapImpulse);
+            flapSound.play();
+        }
+    }
 }
 
 void Game::onRestart()
@@ -194,8 +218,18 @@ void Game::fixedUpdate(float dt)
 
     m_pipes.update(dt, w, m_groundY, m_score);
 
-    m_score += m_pipes.consumePassedScore(m_birdX);
-    if (m_textScore) m_textScore->setString(std::to_string(m_score));
+    int gained = m_pipes.consumePassedScore(m_birdX);
+
+    if (gained > 0)
+    {
+        static sf::Sound scoreSound(m_scoreBuffer);
+        scoreSound.play();
+    }
+
+    m_score += gained;
+
+    if (m_textScore)
+        m_textScore->setString(std::to_string(m_score));
 
     const auto hb = m_bird->hitbox();
     const bool hitGround = (hb.position.y + hb.size.y) > m_groundY;
@@ -203,9 +237,17 @@ void Game::fixedUpdate(float dt)
     const bool hitPipe = m_pipes.collides(hb, m_groundY);
     if (hitGround || hitPipe || hitCeil)
     {
+        static sf::Sound hitSound(m_hitBuffer);
+        static sf::Sound gameOverSound(m_gameOverBuffer);
+
+        hitSound.play();
+        gameOverSound.play();
+
         m_state = State::GameOver;
         m_highScore.saveIfHigher(m_score);
-        if (m_textHigh) m_textHigh->setString("High: " + std::to_string(m_highScore.value()));
+
+        if (m_textHigh)
+             m_textHigh->setString("High: " + std::to_string(m_highScore.value()));
     }
 }
 
